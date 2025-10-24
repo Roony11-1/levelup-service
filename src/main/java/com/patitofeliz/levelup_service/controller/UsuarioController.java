@@ -19,7 +19,7 @@ import com.patitofeliz.levelup_service.model.Usuario;
 import com.patitofeliz.levelup_service.service.UsuarioService;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "http://localhost:5173")
 public class UsuarioController 
 {
@@ -48,7 +48,7 @@ public class UsuarioController
         return ResponseEntity.ok(usuario);
     }
 
-    @PostMapping
+    @PostMapping("/registro")
     public ResponseEntity<Response<Usuario>> save(@RequestBody Usuario usuario) 
     {
         Response<Usuario> response = this.usuarioService.save(usuario);
