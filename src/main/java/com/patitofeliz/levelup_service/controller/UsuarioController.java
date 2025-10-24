@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patitofeliz.levelup_service.model.Response;
-import com.patitofeliz.levelup_service.model.Usuario;
+import com.patitofeliz.levelup_service.model.usuario.Usuario;
 import com.patitofeliz.levelup_service.service.UsuarioService;
 
 @RestController

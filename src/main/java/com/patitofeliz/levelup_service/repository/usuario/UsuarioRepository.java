@@ -1,11 +1,11 @@
-package com.patitofeliz.levelup_service.repository;
+package com.patitofeliz.levelup_service.repository.usuario;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.patitofeliz.levelup_service.model.Usuario;
+import com.patitofeliz.levelup_service.model.usuario.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>

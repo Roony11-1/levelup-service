@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patitofeliz.levelup_service.model.Response;
-import com.patitofeliz.levelup_service.model.Usuario;
-import com.patitofeliz.levelup_service.repository.UsuarioRepository;
+import com.patitofeliz.levelup_service.model.ubicacion.Comuna;
+import com.patitofeliz.levelup_service.model.usuario.Usuario;
+import com.patitofeliz.levelup_service.repository.ubicacion.ComunaRepository;
+import com.patitofeliz.levelup_service.repository.usuario.UsuarioRepository;
 
 @Service
 public class UsuarioService 
 {
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private ComunaRepository comunaRepository;
 
     public List<Usuario> findAll()
     {
@@ -35,6 +39,19 @@ public class UsuarioService
             response.setStatus("409");
             return response;
         }
+
+    if (usuario.getComunaId() != null && usuario.getComunaId() != 0) 
+    {
+        Comuna comuna = comunaRepository.findById(usuario.getComunaId()).orElse(null);
+        if (comuna == null) 
+        {
+            response.setSuccess(false);
+            response.setMessage("Comuna no encontrada");
+            response.setStatus("404");
+            return response;
+        }
+        usuario.setComuna(comuna);
+    }
 
         if (this.usuarioRepository.existsByEmail(usuario.getEmail())) 
         {
