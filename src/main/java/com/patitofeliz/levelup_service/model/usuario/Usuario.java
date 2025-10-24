@@ -1,7 +1,8 @@
 package com.patitofeliz.levelup_service.model.usuario;
 
-import org.antlr.v4.runtime.misc.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.patitofeliz.levelup_service.model.ubicacion.Comuna;
 
 import jakarta.persistence.Entity;
@@ -10,12 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
-@Table(name = "USUARIO")
 @Data
 public class Usuario 
 {
@@ -28,11 +26,8 @@ public class Usuario
     private String contraseña;
     private String telefono;
 
-    @Transient
-    private Integer comunaId;
-
     @ManyToOne
-    @JoinColumn(name = "comuna_id")
+    @JoinColumn(name = "id_comuna")
     private Comuna comuna;
 
     private String tipo;

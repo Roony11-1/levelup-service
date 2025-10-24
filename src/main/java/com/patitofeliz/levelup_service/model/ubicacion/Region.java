@@ -8,11 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "REGION")
 @Data
 public class Region 
 {
@@ -20,7 +18,7 @@ public class Region
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String region;
+    private String nombreRegion;
 
     @OneToMany(mappedBy = "region")
     private List<Comuna> comunas;

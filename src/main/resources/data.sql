@@ -1,17 +1,99 @@
--- =====================
--- REGIONES
--- =====================
-INSERT INTO region (id, region) VALUES (1, 'Región Metropolitana');
+INSERT INTO region (id, nombre_region) VALUES
+(1, 'Región de Arica y Parinacota'),
+(2, 'Región de Tarapacá'),
+(3, 'Región de Valparaíso'),
+(4, 'Región Metropolitana de Santiago'),
+(5, 'Región del Biobío');
 
--- =====================
--- COMUNAS
--- =====================
-INSERT INTO comuna (id, nombre, region_id) VALUES (1, 'Santiago Centro', 1);
-INSERT INTO comuna (id, nombre, region_id) VALUES (2, 'Las Condes', 1);
-INSERT INTO comuna (id, nombre, region_id) VALUES (3, 'Providencia', 1);
+INSERT INTO comuna (nombre_comuna, id_region) VALUES
+-- Región de Arica y Parinacota
+('Arica', 1),
+('Camarones', 1),
+('Putre', 1),
+('General Lagos', 1),
+('Codpa', 1),
 
--- =====================
--- USUARIO
--- =====================
-INSERT INTO usuario (id, nombre_usuario, email, contraseña, telefono, comuna_id, tipo, profile_photo)
-VALUES (1, 'ricardosanchez', 'eltheasasin@gmail.com', '123456', '+56912345678', 1, 'admin', null);
+-- Región de Tarapacá
+('Iquique', 2),
+('Alto Hospicio', 2),
+('Pozo Almonte', 2),
+('Pica', 2),
+('Huara', 2),
+
+-- Región de Valparaíso
+('Valparaíso', 3),
+('Viña del Mar', 3),
+('Quilpué', 3),
+('Villa Alemana', 3),
+('San Antonio', 3),
+
+-- Región Metropolitana de Santiago
+('Santiago', 4),
+('Maipú', 4),
+('Puente Alto', 4),
+('Las Condes', 4),
+('La Florida', 4),
+
+-- Región del Biobío
+('Concepción', 5),
+('Talcahuano', 5),
+('Chiguayante', 5),
+('Los Ángeles', 5),
+('Coronel', 5);
+
+INSERT INTO usuario (contraseña, email, nombre_usuario, profile_photo, telefono, tipo, id_comuna) VALUES
+('123456', 'juan.perez@gmail.com', 'juanp', '/images/juan.jpg', '+56911111111', 'admin', 1),
+('abcdef', 'maria.lopez@gmail.com', 'marial', '/images/maria.jpg', '+56922222222', 'usuario', 2),
+('qwerty', 'carlos.ramirez@gmail.com', 'carlosr', '/images/carlos.jpg', '+56933333333', 'usuario', 3),
+('pass123', 'ana.soto@gmail.com', 'anas', '/images/ana.jpg', '+56944444444', 'admin', 4),
+('root', 'admin@gmail.com', 'admin', '/images/admin.jpg', '+56955555555', 'super', 5);
+('pass001', 'usuario1@gmail.com', 'usuario1', '/images/user1.jpg', '+56910000001', 'usuario', 1),
+('pass002', 'usuario2@gmail.com', 'usuario2', '/images/user2.jpg', '+56910000002', 'usuario', 2),
+('pass003', 'usuario3@gmail.com', 'usuario3', '/images/user3.jpg', '+56910000003', 'usuario', 3),
+('pass004', 'usuario4@gmail.com', 'usuario4', '/images/user4.jpg', '+56910000004', 'usuario', 4),
+('pass005', 'usuario5@gmail.com', 'usuario5', '/images/user5.jpg', '+56910000005', 'usuario', 5),
+('pass006', 'usuario6@gmail.com', 'usuario6', '/images/user6.jpg', '+56910000006', 'usuario', 6),
+('pass007', 'usuario7@gmail.com', 'usuario7', '/images/user7.jpg', '+56910000007', 'usuario', 7),
+('pass008', 'usuario8@gmail.com', 'usuario8', '/images/user8.jpg', '+56910000008', 'usuario', 8),
+('pass009', 'usuario9@gmail.com', 'usuario9', '/images/user9.jpg', '+56910000009', 'usuario', 9),
+('pass010', 'usuario10@gmail.com', 'usuario10', '/images/user10.jpg', '+56910000010', 'usuario', 10),
+('pass011', 'usuario11@gmail.com', 'usuario11', '/images/user11.jpg', '+56910000011', 'usuario', 11),
+('pass012', 'usuario12@gmail.com', 'usuario12', '/images/user12.jpg', '+56910000012', 'usuario', 12),
+('pass013', 'usuario13@gmail.com', 'usuario13', '/images/user13.jpg', '+56910000013', 'usuario', 13),
+('pass014', 'usuario14@gmail.com', 'usuario14', '/images/user14.jpg', '+56910000014', 'usuario', 14),
+('pass015', 'usuario15@gmail.com', 'usuario15', '/images/user15.jpg', '+56910000015', 'usuario', 15),
+('pass016', 'usuario16@gmail.com', 'usuario16', '/images/user16.jpg', '+56910000016', 'usuario', 16),
+('pass017', 'usuario17@gmail.com', 'usuario17', '/images/user17.jpg', '+56910000017', 'usuario', 17),
+('pass018', 'usuario18@gmail.com', 'usuario18', '/images/user18.jpg', '+56910000018', 'usuario', 18),
+('pass019', 'usuario19@gmail.com', 'usuario19', '/images/user19.jpg', '+56910000019', 'usuario', 19),
+('pass020', 'usuario20@gmail.com', 'usuario20', '/images/user20.jpg', '+56910000020', 'usuario', 20),
+('pass021', 'usuario21@gmail.com', 'usuario21', '/images/user21.jpg', '+56910000021', 'usuario', 21),
+('pass022', 'usuario22@gmail.com', 'usuario22', '/images/user22.jpg', '+56910000022', 'usuario', 22),
+('pass023', 'usuario23@gmail.com', 'usuario23', '/images/user23.jpg', '+56910000023', 'usuario', 23),
+('pass024', 'usuario24@gmail.com', 'usuario24', '/images/user24.jpg', '+56910000024', 'usuario', 24),
+('pass025', 'usuario25@gmail.com', 'usuario25', '/images/user25.jpg', '+56910000025', 'usuario', 25),
+('pass026', 'admin1@gmail.com', 'admin1', '/images/admin1.jpg', '+56910000026', 'admin', 1),
+('pass027', 'admin2@gmail.com', 'admin2', '/images/admin2.jpg', '+56910000027', 'admin', 2),
+('pass028', 'admin3@gmail.com', 'admin3', '/images/admin3.jpg', '+56910000028', 'admin', 3),
+('pass029', 'admin4@gmail.com', 'admin4', '/images/admin4.jpg', '+56910000029', 'admin', 4),
+('pass030', 'admin5@gmail.com', 'admin5', '/images/admin5.jpg', '+56910000030', 'admin', 5),
+('pass031', 'user26@gmail.com', 'user26', '/images/user26.jpg', '+56910000031', 'usuario', 6),
+('pass032', 'user27@gmail.com', 'user27', '/images/user27.jpg', '+56910000032', 'usuario', 7),
+('pass033', 'user28@gmail.com', 'user28', '/images/user28.jpg', '+56910000033', 'usuario', 8),
+('pass034', 'user29@gmail.com', 'user29', '/images/user29.jpg', '+56910000034', 'usuario', 9),
+('pass035', 'user30@gmail.com', 'user30', '/images/user30.jpg', '+56910000035', 'usuario', 10),
+('pass036', 'user31@gmail.com', 'user31', '/images/user31.jpg', '+56910000036', 'usuario', 11),
+('pass037', 'user32@gmail.com', 'user32', '/images/user32.jpg', '+56910000037', 'usuario', 12),
+('pass038', 'user33@gmail.com', 'user33', '/images/user33.jpg', '+56910000038', 'usuario', 13),
+('pass039', 'user34@gmail.com', 'user34', '/images/user34.jpg', '+56910000039', 'usuario', 14),
+('pass040', 'user35@gmail.com', 'user35', '/images/user35.jpg', '+56910000040', 'usuario', 15),
+('pass041', 'admin6@gmail.com', 'admin6', '/images/admin6.jpg', '+56910000041', 'admin', 16),
+('pass042', 'admin7@gmail.com', 'admin7', '/images/admin7.jpg', '+56910000042', 'admin', 17),
+('pass043', 'admin8@gmail.com', 'admin8', '/images/admin8.jpg', '+56910000043', 'admin', 18),
+('pass044', 'admin9@gmail.com', 'admin9', '/images/admin9.jpg', '+56910000044', 'admin', 19),
+('pass045', 'admin10@gmail.com', 'admin10', '/images/admin10.jpg', '+56910000045', 'admin', 20),
+('pass046', 'user36@gmail.com', 'user36', '/images/user36.jpg', '+56910000046', 'usuario', 21),
+('pass047', 'user37@gmail.com', 'user37', '/images/user37.jpg', '+56910000047', 'usuario', 22),
+('pass048', 'user38@gmail.com', 'user38', '/images/user38.jpg', '+56910000048', 'usuario', 23),
+('pass049', 'user39@gmail.com', 'user39', '/images/user39.jpg', '+56910000049', 'usuario', 24),
+('pass050', 'user40@gmail.com', 'user40', '/images/user40.jpg', '+56910000050', 'usuario', 25);

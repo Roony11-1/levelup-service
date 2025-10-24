@@ -1,4 +1,4 @@
-package com.patitofeliz.levelup_service.controller;
+package com.patitofeliz.levelup_service.controller.usuario;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patitofeliz.levelup_service.model.Response;
 import com.patitofeliz.levelup_service.model.usuario.Usuario;
-import com.patitofeliz.levelup_service.service.UsuarioService;
+import com.patitofeliz.levelup_service.service.usuario.UsuarioService;
 
 @RestController
 @RequestMapping("/api/usuarios")
