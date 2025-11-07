@@ -27,4 +27,3 @@ public class Usuario
     private String tipo;
     private String profilePhoto;
 }
-
