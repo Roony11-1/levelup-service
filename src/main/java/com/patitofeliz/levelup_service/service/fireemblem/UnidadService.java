@@ -45,4 +45,15 @@ public class UnidadService
 
         return response;
     }
+
+    public Response<Unidad> update(Unidad unidad) 
+    {
+        Response<Unidad> response = new Response<>(true, "Unidad actualizada", null, null);
+
+        Unidad unidadActualizada = this.unidadRepository.save(unidad);
+        response.setEntity(unidadActualizada);
+        response.setStatus("200");
+
+        return response;
+    }
 }
