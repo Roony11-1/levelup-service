@@ -17,4 +17,5 @@ public class Pull
     private int idUsuario;
     private String tipoRecomepenza;
     private String nombreRecompenza;
+    private String claseRecompenza;
 }
