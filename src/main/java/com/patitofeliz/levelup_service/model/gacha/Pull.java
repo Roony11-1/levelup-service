@@ -1,5 +1,7 @@
 package com.patitofeliz.levelup_service.model.gacha;
 
+import com.patitofeliz.levelup_service.model.usuario.Usuario;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,13 +18,17 @@ public class Pull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int usuarioId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "banner_id")
     private Banner banner;
-
-    @ManyToOne
-    @JoinColumn(name = "item_id")
-    private BannerItem itemResultado;
+    
+    // Info de la tirada para reconstruir el objeto
+    private String nombre;
+    private String clase;
+    private String tipo;
+    private String rareza;
 }

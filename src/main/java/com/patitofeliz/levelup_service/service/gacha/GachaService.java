@@ -24,35 +24,22 @@ public class GachaService
         Banner banner = bannerRepository.findById(bannerId)
                 .orElseThrow(() -> new RuntimeException("Banner no encontrado"));
 
-        List<BannerItem> items = banner.getItems();
+        // tendre rarezas B - A - S
+        // Lista de objetos de el banner
+        List<BannerItem> listaBanner = banner.getItems();
 
-        if (items.isEmpty())
-            throw new RuntimeException("El banner no tiene items");
+        if (listaBanner.isEmpty())
+            throw new RuntimeException("El banner no tiene items asignados");
 
-        BannerItem resultado = getItemPorProbabilidad(items);
+        // Metodo auxiliar par aescoger el item de el banner
 
         Pull pull = new Pull();
-        pull.setUsuarioId(usuarioId);
-        pull.setBanner(banner);
-        pull.setItemResultado(resultado);
 
         return pullRepository.save(pull);
     }
 
-    private BannerItem getItemPorProbabilidad(List<BannerItem> items) 
+    private BannerItem recompenza(List<BannerItem> recompenzas)
     {
-        double totalProb = items.stream().mapToDouble(BannerItem::getProbabilidad).sum();
-
-        double rand = Math.random() * totalProb;
-        double acumulado = 0.0;
-
-        for (BannerItem item : items) 
-        {
-            acumulado += item.getProbabilidad();
-            if (rand <= acumulado)
-                return item;
-        }
-
-        return items.get(items.size() - 1);
+        
     }
 }
