@@ -10,19 +10,19 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Pull 
+public class BannerItem 
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int usuarioId;
+    private String nombre;
+    private String clase;
+    private String tipo;
+    private String rareza;
+    private double probabilidad;
 
     @ManyToOne
     @JoinColumn(name = "banner_id")
     private Banner banner;
-
-    @ManyToOne
-    @JoinColumn(name = "item_id")
-    private BannerItem itemResultado;
 }
