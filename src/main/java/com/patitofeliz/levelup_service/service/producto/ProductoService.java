@@ -90,8 +90,8 @@ public class ProductoService
 
         Producto producto = productoOpt.get();
 
-        List<Producto> porCategoria = productoRepository.findByCategoria(producto.getCategoria());
-        List<Producto> porMarca = productoRepository.findByMarca(producto.getMarca());
+        List<Producto> porCategoria = productoRepository.findByCategoriaContainingIgnoreCase(producto.getCategoria());
+        List<Producto> porMarca = productoRepository.findByMarcaContainingIgnoreCase(producto.getMarca());
 
         List<Producto> relacionados = new ArrayList<>();
         relacionados.addAll(porCategoria);
