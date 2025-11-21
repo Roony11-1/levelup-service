@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +38,7 @@ public class UsuarioController
         return ResponseEntity.ok(usuarios);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Usuario> findById(@PathVariable("id") int id)
     {
         Usuario usuario = this.usuarioService.findById(id);
@@ -48,7 +49,18 @@ public class UsuarioController
         return ResponseEntity.ok(usuario);
     }
 
-    @PostMapping("/registro")
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Usuario> findByEmail(@PathVariable("email") String email)
+    {
+        Usuario usuario = this.usuarioService.findByEmail(email);
+
+        if (usuario == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(usuario);
+    }
+
+    @PostMapping
     public ResponseEntity<Response<Usuario>> save(@RequestBody Usuario usuario) 
     {
         Response<Usuario> response = this.usuarioService.save(usuario);
@@ -62,6 +74,15 @@ public class UsuarioController
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Response<Usuario>> update(@PathVariable int id, @RequestBody Usuario usuario)
+    {
+        usuario.setId(id);
+        Response<Usuario> response = this.usuarioService.update(id, usuario);
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")

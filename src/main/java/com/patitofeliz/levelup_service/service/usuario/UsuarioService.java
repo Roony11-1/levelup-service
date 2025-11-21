@@ -1,6 +1,7 @@
 package com.patitofeliz.levelup_service.service.usuario;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,34 @@ public class UsuarioService
     public Usuario findById(int id)
     {
         return this.usuarioRepository.findById(id).orElse(null);
+    }
+
+    public Usuario findByEmail(String email)
+    {
+        return this.usuarioRepository.findByEmail(email).orElse(null);
+    }
+
+    public Response<Usuario> update(int id, Usuario usuario)
+    {
+        Response<Usuario> response = new Response<>(true, "Usuario actualizado", null, null);
+
+        Optional<Usuario> existente = this.usuarioRepository.findByEmail(usuario.getEmail());
+
+        if (existente.isPresent() && existente.get().getId() != id) 
+        {
+            response.setMessage("Usuario no actualizado: Email duplicado");
+            response.setStatus("400");
+            return response;
+        }
+
+        usuario.setId(id);
+
+        Usuario usuarioNuevo = this.usuarioRepository.save(usuario);
+
+        response.setEntity(usuarioNuevo);
+        response.setStatus("200");
+
+        return response;
     }
 
     public Response<Usuario> save(Usuario usuario) 
