@@ -72,3 +72,8 @@ VALUES
 (10,'Ropa','RO005','Sudadera cómoda de algodón con estampado gamer. Perfecta para relajarse o jugar con estilo.',0,'/productos/sudaderaGamer.png','Propia','Sudadera ''Eat. Sleep. Game. Repeat.''',0.3,24990),
 
 (8,'Merchandising','ME001','Figura detallada de Link con su arco, inspirada en ''The Legend of Zelda: Breath of the Wild''. Ideal para coleccionistas.',0,'/productos/linkFigura.png','Nintendo','Figura Coleccionable Link (Zelda BOTW)',0.5,59990);
+
+INSERT INTO blog (titulo, descripcion, imagen, url) VALUES
+('PC Gaming Show Tokyo Direct', 'El 28 de septiembre se llevará a cabo el PC Gaming Show Tokyo Direct, presentando trailers exclusivos, entrevistas con desarrolladores y más novedades jugosas para fans de los juegos de PC.', '/TGS25-PC-Gamer.png', 'https://lado.mx/noticia/19110584'),
+('Hollow Knight: Silksong', 'El lanzamiento del esperado Hollow Knight: Silksong el 4 de septiembre hizo que plataformas como Steam y Nintendo eShop colapsaran por la alta demanda en varias regiones.', '/caidaxhollow knigth.png', 'https://es-us.noticias.yahoo.com/hollow-knight-silksong-provoca-ca%C3%ADda-153627740.html'),
+('Juegos PlayStation Plus', 'Sony anunció que desde el 16 de septiembre de 2025, los usuarios con plan Extra o Premium de PlayStation Plus podrán jugar WWE 2K25 y Legacy of Kain: Defiance, junto a otros títulos clásicos.', '/juegosPlus.png', 'https://www.myepicnet.com/noticias/sony-ha-anunciado-los-juegos-que-llegaran-al-catalogo-de-juegos-de-ps-plus-este-mes/');
