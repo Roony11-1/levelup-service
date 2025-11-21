@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,5 +57,58 @@ public class ProductoController
     public ResponseEntity<?> obtenerConRelacionados(@PathVariable String nombre) 
     {
         return ResponseEntity.ok(productoService.obtenerProductoConRelacionados(nombre));
+    }
+
+    // Buscar por categoría
+    @GetMapping("/categoria/{categoria}")
+    public ResponseEntity<List<Producto>> getProductosByCategoria(@PathVariable String categoria) 
+    {
+        List<Producto> productos = productoService.getProductosByCategoria(categoria);
+        if (productos.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(productos);
+    }
+
+    // Buscar por marca
+    @GetMapping("/marca/{marca}")
+    public ResponseEntity<List<Producto>> getProductosByMarca(@PathVariable String marca) 
+    {
+        List<Producto> productos = productoService.getProductosByMarca(marca);
+        if (productos.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(productos);
+    }
+
+    // Buscar por nombre
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<Producto>> getProductosByNombre(@PathVariable String nombre) 
+    {
+        List<Producto> productos = productoService.getProductosByNombre(nombre);
+        if (productos.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(productos);
+    }
+
+    @GetMapping("/buscar/{filtro}")
+    public ResponseEntity<List<Producto>> findProducto(@PathVariable String filtro) 
+    {
+        List<Producto> productos = productoService.findProducto(filtro);
+        if (productos.isEmpty()) 
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(productos);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> update(@PathVariable int id, @RequestBody Producto producto) 
+    {
+        Producto actualizado = productoService.update(id, producto);
+        return ResponseEntity.ok(actualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable int id) 
+    {
+        productoService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

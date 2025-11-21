@@ -13,8 +13,9 @@ import com.patitofeliz.levelup_service.model.producto.Producto;
 public interface ProductoRepository extends JpaRepository<Producto, Integer>
 {
     List<Producto> findByDestacado(boolean destacado);
-    List<Producto> findByCategoria(String categoria);
-    List<Producto> findByMarca(String marca);
+    List<Producto> findByCategoriaContainingIgnoreCase(String categoria);
+    List<Producto> findByMarcaContainingIgnoreCase(String marca);
+    List<Producto> findAllByNombreContainingIgnoreCase(String nombre);
     Optional<Producto> findByNombre(String nombre);
 
     // Marcas únicas

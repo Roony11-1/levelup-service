@@ -103,4 +103,9 @@ public class UsuarioService
 
         return response;
     }
+
+    public void deleteById(int id)
+    {
+        usuarioRepository.deleteById(id);
+    }
 }
