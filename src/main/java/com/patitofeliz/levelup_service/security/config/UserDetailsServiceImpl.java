@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
     public UserDetails loadUserByUsername(String email)
     {
         Usuario usuario = usuarioRepository.findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         return new CustomUserDetails(usuario);
     }
