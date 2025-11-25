@@ -24,19 +24,22 @@ public class SecurityConfiguration
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception 
-    {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable) // Desactiva CSRF para APIs 
-            .authorizeHttpRequests(auth -> auth
-                // Rutas públicas (para autenticación) solo de / api/auth/
-                //.requestMatchers("/api/auth/**").permitAll()
-                // Otras rutas protegidas por roles globales (opcional, se usará @PreAuthorize en el controlador)
-                .anyRequest().permitAll() // Todas las demás rutas requieren autenticación
-            )
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Gestión de sesión sin estado (JWT)
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Añade el filtro JWT
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                                // Permitir el preflight del navegador
+                                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+
+                                // Permitir el login sin token
+                                .requestMatchers("/api/auth/**").permitAll()
+
+                                // Todo lo demás protegido
+                                .anyRequest().authenticated()
+                )
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

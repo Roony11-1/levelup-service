@@ -31,7 +31,7 @@ public class AuthenticationService
 
         String jwtToken = jwtService.generateToken(details);
 
-        AuthResponseDTO authResponse = new AuthResponseDTO(jwtToken);
+        AuthResponseDTO authResponse = new AuthResponseDTO(respuestaSignIn.getData().getId(), jwtToken);
 
         return Response.<AuthResponseDTO>builder()
             .message(respuestaSignIn.getMessage())
@@ -52,12 +52,19 @@ public class AuthenticationService
 
         String jwtToken = jwtService.generateToken(details);
 
-        AuthResponseDTO authResponse = new AuthResponseDTO(jwtToken);
+        AuthResponseDTO authResponse = new AuthResponseDTO(usuarioLogin.getId(), jwtToken);
 
         return Response.<AuthResponseDTO>builder()
                 .message("Logeado")
                 .data(authResponse)
                 .build();
+    }
+
+    public Usuario findProfile(int id, String token)
+    {
+        Usuario usuario = usuarioService.findById(id);
+
+        return usuario;
     }
 }
     
