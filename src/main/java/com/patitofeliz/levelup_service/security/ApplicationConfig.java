@@ -32,12 +32,8 @@ public class ApplicationConfig
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) 
-        throws Exception {
-            // Expone el AuthenticationManager, necesario en AuthenticationService
-            return config.getAuthenticationManager();}
+        throws Exception { return config.getAuthenticationManager(); }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        // Utiliza BCrypt para un cifrado seguro de contraseñas
-        return new BCryptPasswordEncoder();}
+    public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
 }

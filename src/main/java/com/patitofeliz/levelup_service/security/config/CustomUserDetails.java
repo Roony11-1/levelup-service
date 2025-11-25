@@ -7,6 +7,7 @@ import com.patitofeliz.levelup_service.model.usuario.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Builder
 @AllArgsConstructor
+@Data
 public class CustomUserDetails implements UserDetails 
 {
     private final Usuario usuario;
@@ -27,13 +29,13 @@ public class CustomUserDetails implements UserDetails
     @Override
     public String getPassword() 
     {
-        return usuario.getContraseña(); // Retorna la contraseña cifrada
+        return usuario.getContraseña();
     }
 
     @Override
     public String getUsername() 
     {
-        return usuario.getEmail(); // Usamos el email como nombre de usuario
+        return usuario.getEmail();
     }
 
     @Override
@@ -58,10 +60,5 @@ public class CustomUserDetails implements UserDetails
     public boolean isEnabled() 
     {
         return true; // Si el usuario está habilitado
-    }
-
-    public Usuario getUsuario() 
-    {
-        return usuario; // Puedes agregar métodos personalizados si es necesario
     }
 }
