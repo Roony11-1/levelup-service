@@ -38,9 +38,6 @@ public class Usuario
     
     private String tipo;
     private String profilePhoto;
-    
-    @Enumerated(EnumType.STRING)
-    private Role role; // Enum Role { USER, ADMIN }
 
     private List<String> roles;
 
@@ -54,7 +51,6 @@ public class Usuario
             .comuna(registerRequest.getComuna())
             .region(registerRequest.getRegion())
             .tipo(registerRequest.getTipo())
-            .role(Role.USER)
             .build();
     }
 }
