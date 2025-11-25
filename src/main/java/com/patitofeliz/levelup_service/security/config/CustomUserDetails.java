@@ -3,32 +3,25 @@ package com.patitofeliz.levelup_service.security.config;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.patitofeliz.levelup_service.model.usuario.Role;
 import com.patitofeliz.levelup_service.model.usuario.Usuario;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Builder
+@AllArgsConstructor
 public class CustomUserDetails implements UserDetails 
 {
     private final Usuario usuario;
 
-    public CustomUserDetails(Usuario usuario) 
+    public Collection<? extends GrantedAuthority> getAuthorities() 
     {
-        this.usuario = usuario;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Mapea los roles a objetos SimpleGrantedAuthority
-        return usuario.getRoles().stream()
-            .map(role -> new SimpleGrantedAuthority(role)) // Utiliza el método getAuthority() del enum
-            .collect(Collectors.toList());
+        return List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getTipo().toUpperCase()));
     }
 
     @Override

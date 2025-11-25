@@ -3,7 +3,6 @@ package com.patitofeliz.levelup_service.controller.usuario;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,13 +19,15 @@ import com.patitofeliz.levelup_service.model.Response;
 import com.patitofeliz.levelup_service.model.usuario.Usuario;
 import com.patitofeliz.levelup_service.service.usuario.UsuarioService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "http://localhost:5173")
+@RequiredArgsConstructor
 public class UsuarioController 
 {
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll()
@@ -66,14 +67,6 @@ public class UsuarioController
     {
         Response<Usuario> response = this.usuarioService.save(usuario);
 
-        if (!response.isSuccess()) 
-        {
-            if (response.getMessage().contains("Email duplicado"))
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
-            else 
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        }
-
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -93,15 +86,12 @@ public class UsuarioController
         String contraseña = loginData.get("contraseña");
         Response<Usuario> response = this.usuarioService.login(email, contraseña);
 
-        if (!response.isSuccess()) 
-        {
-            if (response.getMessage().contains("vacíos"))
-                return ResponseEntity.badRequest().body(response);
-            else if (response.getMessage().contains("no encontrado")) 
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-            else if (response.getMessage().contains("incorrecta"))
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-        }
+        if (response.getMessage().contains("vacíos"))
+            return ResponseEntity.badRequest().body(response);
+        else if (response.getMessage().contains("no encontrado")) 
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        else if (response.getMessage().contains("incorrecta"))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 
         return ResponseEntity.ok(response);
     }

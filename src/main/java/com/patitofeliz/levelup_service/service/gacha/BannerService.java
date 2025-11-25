@@ -3,7 +3,6 @@ package com.patitofeliz.levelup_service.service.gacha;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patitofeliz.levelup_service.model.gacha.Banner;
@@ -11,13 +10,14 @@ import com.patitofeliz.levelup_service.model.gacha.BannerItem;
 import com.patitofeliz.levelup_service.repository.gacha.BannerItemRepository;
 import com.patitofeliz.levelup_service.repository.gacha.BannerRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BannerService 
 {
-    @Autowired
-    private BannerRepository bannerRepository;
-    @Autowired 
-    BannerItemRepository bannerItemRepository;
+    private final BannerRepository bannerRepository;
+    private final BannerItemRepository bannerItemRepository;
 
     public List<Banner> findAll()
     {

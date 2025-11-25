@@ -2,18 +2,19 @@ package com.patitofeliz.levelup_service.service.fireemblem;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patitofeliz.levelup_service.model.Response;
 import com.patitofeliz.levelup_service.model.fireemblem.Unidad;
 import com.patitofeliz.levelup_service.repository.fireemblem.UnidadRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UnidadService
 {
-    @Autowired
-    private UnidadRepository unidadRepository;
+    private final UnidadRepository unidadRepository;
 
     public List<Unidad> findAll()
     {
@@ -37,22 +38,20 @@ public class UnidadService
 
     public Response<Unidad> save(Unidad unidad) 
     {
-        Response<Unidad> response = new Response<>(true, "Unidad registrada", null, null);
+        Response<Unidad> response = new Response<>("Unidad registrada", null);
 
         Unidad unidadNueva = this.unidadRepository.save(unidad);
-        response.setEntity(unidadNueva);
-        response.setStatus("201");
+        response.setData(unidadNueva);
 
         return response;
     }
 
     public Response<Unidad> update(Unidad unidad) 
     {
-        Response<Unidad> response = new Response<>(true, "Unidad actualizada", null, null);
+        Response<Unidad> response = new Response<>("Unidad actualizada", null);
 
         Unidad unidadActualizada = this.unidadRepository.save(unidad);
-        response.setEntity(unidadActualizada);
-        response.setStatus("200");
+        response.setData(unidadActualizada);
 
         return response;
     }

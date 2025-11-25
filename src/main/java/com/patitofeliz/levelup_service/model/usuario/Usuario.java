@@ -38,19 +38,4 @@ public class Usuario
     
     private String tipo;
     private String profilePhoto;
-
-    private List<String> roles;
-
-    public Usuario getUserFromRequest(RegisterRequest registerRequest)
-    {
-        return Usuario.builder()
-            .nombreUsuario(registerRequest.getNombreUsuario())
-            .email(registerRequest.getEmail())
-            .contraseña(registerRequest.getContraseña())
-            .telefono(registerRequest.getTelefono())
-            .comuna(registerRequest.getComuna())
-            .region(registerRequest.getRegion())
-            .tipo(registerRequest.getTipo())
-            .build();
-    }
 }

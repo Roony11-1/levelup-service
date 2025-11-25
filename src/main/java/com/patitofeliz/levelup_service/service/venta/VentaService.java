@@ -2,7 +2,6 @@ package com.patitofeliz.levelup_service.service.venta;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patitofeliz.levelup_service.model.producto.Producto;
@@ -10,13 +9,14 @@ import com.patitofeliz.levelup_service.model.venta.Venta;
 import com.patitofeliz.levelup_service.repository.producto.ProductoRepository;
 import com.patitofeliz.levelup_service.repository.venta.VentaRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class VentaService 
 {
-    @Autowired
-    private VentaRepository ventaRepository;
-    @Autowired
-    private ProductoRepository productoRepository;
+    private final VentaRepository ventaRepository;
+    private final ProductoRepository productoRepository;
 
     public List<Venta> findAll()
     {

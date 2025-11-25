@@ -2,7 +2,6 @@ package com.patitofeliz.levelup_service.controller.fireemblem;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,13 +17,15 @@ import com.patitofeliz.levelup_service.model.Response;
 import com.patitofeliz.levelup_service.model.fireemblem.Unidad;
 import com.patitofeliz.levelup_service.service.fireemblem.UnidadService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/unidades")
 @CrossOrigin(origins = "http://localhost:5173")
+@RequiredArgsConstructor
 public class UnidadController 
 {
-    @Autowired
-    private UnidadService unidadService;
+    private final UnidadService unidadService;
 
     @GetMapping
     public ResponseEntity<List<Unidad>> findAll()

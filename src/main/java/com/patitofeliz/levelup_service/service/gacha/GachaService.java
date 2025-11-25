@@ -3,7 +3,6 @@ package com.patitofeliz.levelup_service.service.gacha;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patitofeliz.levelup_service.model.gacha.Banner;
@@ -14,15 +13,15 @@ import com.patitofeliz.levelup_service.repository.gacha.BannerRepository;
 import com.patitofeliz.levelup_service.repository.gacha.PullRepository;
 import com.patitofeliz.levelup_service.repository.usuario.UsuarioRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class GachaService 
 {
-    @Autowired
-    private BannerRepository bannerRepository;
-    @Autowired
-    private PullRepository pullRepository;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final BannerRepository bannerRepository;
+    private final PullRepository pullRepository;
+    private final UsuarioRepository usuarioRepository;
 
     private static final Map<String, Double> PROB_RAREZA = Map.of(
             "B", 60.0,

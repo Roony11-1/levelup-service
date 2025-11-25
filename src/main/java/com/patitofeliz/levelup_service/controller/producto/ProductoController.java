@@ -2,7 +2,6 @@ package com.patitofeliz.levelup_service.controller.producto;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,13 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patitofeliz.levelup_service.model.producto.Producto;
 import com.patitofeliz.levelup_service.service.producto.ProductoService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/productos")
 @CrossOrigin(origins = "http://localhost:5173")
+@RequiredArgsConstructor
 public class ProductoController 
 {
-    @Autowired
-    private ProductoService productoService;
+    private final ProductoService productoService;
 
     @GetMapping
     public ResponseEntity<List<Producto>> findAll()

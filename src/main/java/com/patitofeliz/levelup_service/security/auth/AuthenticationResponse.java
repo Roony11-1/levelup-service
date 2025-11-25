@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class AuthenticationResponse {
+public class AuthenticationResponse 
+{
     private String token;
       // Puedes añadir más datos si lo deseas, 
     // como el nombre de usuario o roles

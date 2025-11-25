@@ -1,6 +1,5 @@
 package com.patitofeliz.levelup_service.controller.gacha;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +10,14 @@ import com.patitofeliz.levelup_service.model.dto.PullResponseDTO;
 import com.patitofeliz.levelup_service.model.gacha.Pull;
 import com.patitofeliz.levelup_service.service.gacha.GachaService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/gacha")
+@RequiredArgsConstructor
 public class GachaController 
 {
-    @Autowired
-    private GachaService gachaService;
+    private final GachaService gachaService;
 
     @PostMapping("/pull")
     public ResponseEntity<PullResponseDTO> pull(@RequestParam int bannerId, @RequestParam int usuarioId) 

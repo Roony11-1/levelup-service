@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class RegisterRequest {
+public class RegisterRequest 
+{
     private int id;
 
     private String nombreUsuario;
@@ -20,5 +20,4 @@ public class RegisterRequest {
     private String region;
     
     private String tipo;
-    
 }

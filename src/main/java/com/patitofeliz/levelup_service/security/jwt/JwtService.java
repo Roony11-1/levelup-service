@@ -8,14 +8,18 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.patitofeliz.levelup_service.security.config.CustomUserDetails;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService 
@@ -42,7 +46,7 @@ public class JwtService
     }
 
     // Genera un token para un UserDetails dado
-    public String generateToken(UserDetails userDetails) 
+    public String generateToken(CustomUserDetails userDetails) 
     {
         return generateToken(new HashMap<>(), userDetails);
     }
@@ -50,22 +54,23 @@ public class JwtService
     // Genera un token con claims adicionales (como roles)
     public String generateToken(
         Map<String, Object> extraClaims,
-        UserDetails userDetails) 
+        CustomUserDetails userDetails) 
     {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     private String buildToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails,
+            CustomUserDetails userDetails,
             long expiration) 
     {
-        // Opcional: Incluir roles/autoridades en los claims del token
-        extraClaims.put("roles", userDetails.getAuthorities());       
+        extraClaims.put("roles", userDetails.getAuthorities()
+            .stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+            
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(userDetails.getUsuario().getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
