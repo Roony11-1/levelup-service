@@ -2,6 +2,8 @@ package com.patitofeliz.levelup_service.model.usuario;
 
 
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,4 +28,6 @@ public class Usuario
     
     private String tipo;
     private String profilePhoto;
+    
+    private List<String> roles;
 }
