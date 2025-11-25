@@ -1,5 +1,4 @@
 package com.patitofeliz.levelup_service.security.auth;
-import com.patitofeliz.levelup_service.model.usuario.Role;
 import com.patitofeliz.levelup_service.model.usuario.Usuario;
 import com.patitofeliz.levelup_service.repository.usuario.UsuarioRepository;
 import com.patitofeliz.levelup_service.security.config.CustomUserDetails;
@@ -7,7 +6,6 @@ import com.patitofeliz.levelup_service.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
