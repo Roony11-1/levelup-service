@@ -30,9 +30,9 @@ public class SecurityConfiguration
             .csrf(AbstractHttpConfigurer::disable) // Desactiva CSRF para APIs 
             .authorizeHttpRequests(auth -> auth
                 // Rutas públicas (para autenticación) solo de / api/auth/
-                .requestMatchers("/api/auth/**").permitAll()
+                //.requestMatchers("/api/auth/**").permitAll()
                 // Otras rutas protegidas por roles globales (opcional, se usará @PreAuthorize en el controlador)
-                .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
+                .anyRequest().permitAll() // Todas las demás rutas requieren autenticación
             )
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Gestión de sesión sin estado (JWT)
             .authenticationProvider(authenticationProvider)

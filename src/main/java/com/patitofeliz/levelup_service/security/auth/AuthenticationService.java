@@ -5,6 +5,10 @@ import com.patitofeliz.levelup_service.repository.usuario.UsuarioRepository;
 import com.patitofeliz.levelup_service.security.config.CustomUserDetails;
 import com.patitofeliz.levelup_service.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +28,7 @@ public class AuthenticationService {
         Usuario usuario = new Usuario().getUserFromRequest(request);
         // Codifica la pass
         usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
+        usuario.setRoles(new ArrayList<String>());
 
         var userSaved = repository.save(usuario);
 
