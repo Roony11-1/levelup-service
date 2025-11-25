@@ -63,7 +63,12 @@ public class AuthenticationService
     public Usuario findProfile(int id, String token)
     {
         Usuario usuario = usuarioService.findById(id);
+        usuario.setContraseña("");
 
+        /*CustomUserDetails details = CustomUserDetails.builder().usuario(usuario).build();
+
+        if (!jwtService.isTokenValid(token, details))
+            throw new RuntimeException("Token inválido");*/
         return usuario;
     }
 }

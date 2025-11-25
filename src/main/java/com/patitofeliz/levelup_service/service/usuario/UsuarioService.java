@@ -2,7 +2,7 @@ package com.patitofeliz.levelup_service.service.usuario;
 
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.patitofeliz.levelup_service.model.Response;
@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioService 
 {
+    private final PasswordEncoder passwordEncoder;
     private final UsuarioRepository usuarioRepository;
 
     public List<Usuario> findAll()
@@ -32,27 +33,38 @@ public class UsuarioService
         return this.usuarioRepository.findByEmail(email).orElse(null);
     }
 
-    public Response<Usuario> update(int id, Usuario usuario)
+    public Response<Usuario> update(int id, Usuario usuarioUpdate) 
     {
         Response<Usuario> response = new Response<Usuario>("Usuario actualizado", null);
 
-        Optional<Usuario> existente = this.usuarioRepository.findByEmail(usuario.getEmail());
+        // Buscar usuario existente
+        Optional<Usuario> existenteOpt = this.usuarioRepository.findById(id);
+        if (existenteOpt.isEmpty()) {
+            response.setMessage("Usuario no encontrado");
+            return response;
+        }
+        Usuario existente = existenteOpt.get();
 
-        if (existente.isPresent() && existente.get().getId() != id) 
-        {
+        // Validar email duplicado
+        Optional<Usuario> porEmail = this.usuarioRepository.findByEmail(usuarioUpdate.getEmail());
+        if (porEmail.isPresent() && porEmail.get().getId() != id) {
             response.setMessage("Usuario no actualizado: Email duplicado");
-            response.setData(usuario);
+            response.setData(usuarioUpdate);
             return response;
         }
 
-        usuario.setId(id);
+        existente.setNombreUsuario(usuarioUpdate.getNombreUsuario());
+        existente.setEmail(usuarioUpdate.getEmail());
 
-        Usuario usuarioNuevo = this.usuarioRepository.save(usuario);
+        if (usuarioUpdate.getContraseña() != null && !usuarioUpdate.getContraseña().isBlank())
+            existente.setContraseña(passwordEncoder.encode(usuarioUpdate.getContraseña()));
 
-        response.setData(usuarioNuevo);
+        Usuario usuarioGuardado = this.usuarioRepository.save(existente);
+        response.setData(usuarioGuardado);
 
         return response;
     }
+
 
     public Response<Usuario> save(Usuario usuario) 
     {

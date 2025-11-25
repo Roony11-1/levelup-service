@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patitofeliz.levelup_service.model.Response;
 import com.patitofeliz.levelup_service.model.usuario.Usuario;
+import com.patitofeliz.levelup_service.security.auth.AuthenticationService;
 import com.patitofeliz.levelup_service.service.usuario.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioController 
 {
     private final UsuarioService usuarioService;
+    private final AuthenticationService authenticationService;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll()
