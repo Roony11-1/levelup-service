@@ -4,14 +4,24 @@ package com.patitofeliz.levelup_service.model.usuario;
 
 import java.util.List;
 
+import com.patitofeliz.levelup_service.security.auth.RegisterRequest;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario 
 {
     @Id
@@ -29,5 +39,20 @@ public class Usuario
     private String tipo;
     private String profilePhoto;
     
-    private List<String> roles;
+    @Enumerated(EnumType.STRING)
+    private Role role; // Enum Role { USER, ADMIN }
+
+    public Usuario getUserFromRequest(RegisterRequest registerRequest)
+    {
+        return Usuario.builder()
+            .nombreUsuario(registerRequest.getNombreUsuario())
+            .email(registerRequest.getEmail())
+            .contraseña(registerRequest.getContraseña())
+            .telefono(registerRequest.getTelefono())
+            .comuna(registerRequest.getComuna())
+            .region(registerRequest.getRegion())
+            .tipo(registerRequest.getTipo())
+            .role(Role.USER)
+            .build();
+    }
 }

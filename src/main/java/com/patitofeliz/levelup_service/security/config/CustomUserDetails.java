@@ -3,11 +3,15 @@ package com.patitofeliz.levelup_service.security.config;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.patitofeliz.levelup_service.model.usuario.Usuario;
+
+import lombok.Builder;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+@Builder
 public class CustomUserDetails implements UserDetails 
 {
     private final Usuario usuario;
