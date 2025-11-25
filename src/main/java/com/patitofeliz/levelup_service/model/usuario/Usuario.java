@@ -42,6 +42,8 @@ public class Usuario
     @Enumerated(EnumType.STRING)
     private Role role; // Enum Role { USER, ADMIN }
 
+    private List<String> roles;
+
     public Usuario getUserFromRequest(RegisterRequest registerRequest)
     {
         return Usuario.builder()

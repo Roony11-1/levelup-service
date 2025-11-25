@@ -39,9 +39,7 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
-                        request.getContraseña()
-                )
-        );
+                        request.getContraseña()));
         
         // Si llega aquí, la autenticación fue exitosa. Buscamos al usuario para generar el token.
         var user = repository.findByEmail(request.getEmail())
