@@ -1,8 +1,9 @@
 package com.patitofeliz.levelup_service.security.auth;
-//import com.patitofeliz.levelup_service.model.Role;
+import com.patitofeliz.levelup_service.model.usuario.Role;
 import com.patitofeliz.levelup_service.model.usuario.Usuario;
 import com.patitofeliz.levelup_service.repository.usuario.UsuarioRepository;
-//import com.patitofeliz.levelup_service.security.jwt.JwtService;
+import com.patitofeliz.levelup_service.security.config.CustomUserDetails;
+import com.patitofeliz.levelup_service.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,23 +15,19 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UsuarioRepository repository;
     private final PasswordEncoder passwordEncoder;
-    //private final JwtService jwtService;
+    private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
      // Método para manejar el registro de nuevos usuarios (
     // opcional, pero incluido para completitud)
-    public AuthenticationResponse register(RegisterRequest request) {
-        var user = usuario.builder()
-                .nombreUsuario(request.getNombreUsuario())
-                .email(request.getEmail())
-                .contraseña(passwordEncoder.encode(request.getContraseña()))
-                .telefono(request.getTelefono())
-                .comuna(request.getComuna())
-                .region(request.getRegion())
-                .tipo(request.getTipo())
-                .role(Role.USER) // Asigna un rol por defecto (ej. USER)
-                .build();
-        repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+    public AuthenticationResponse register(RegisterRequest request) 
+    {
+        Usuario usuario = new Usuario().getUserFromRequest(request);
+
+        var userSaved = repository.save(usuario);
+
+        var details = CustomUserDetails.builder().usuario(userSaved).build();
+        
+        var jwtToken = jwtService.generateToken(details);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -48,9 +45,10 @@ public class AuthenticationService {
         
         // Si llega aquí, la autenticación fue exitosa. Buscamos al usuario para generar el token.
         var user = repository.findByEmail(request.getEmail())
-                .orElseThrow(); // En un caso real, manejarías esta excepción si el usuario no se encuentra tras una autenticación exitosa
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+            var details = CustomUserDetails.builder().usuario(user).build();
 
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(details);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
