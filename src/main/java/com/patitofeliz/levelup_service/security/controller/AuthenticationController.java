@@ -14,7 +14,7 @@ import com.patitofeliz.levelup_service.security.auth.AuthenticationService;
 import com.patitofeliz.levelup_service.security.auth.RegisterRequest;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
@@ -26,7 +26,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.register(request));
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/authenticate")   
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) 
     {
         return ResponseEntity.ok(service.authenticate(request));

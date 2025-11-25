@@ -22,6 +22,8 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) 
     {
         Usuario usuario = new Usuario().getUserFromRequest(request);
+        // Codifica la pass
+        usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
 
         var userSaved = repository.save(usuario);
 
