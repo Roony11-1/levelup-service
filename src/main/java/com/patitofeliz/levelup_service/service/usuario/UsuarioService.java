@@ -33,34 +33,24 @@ public class UsuarioService
         return this.usuarioRepository.findByEmail(email).orElse(null);
     }
 
-    public Response<Usuario> update(int id, Usuario usuarioUpdate) 
+    public Response<Usuario> update(int id, Usuario usuario)
     {
         Response<Usuario> response = new Response<Usuario>("Usuario actualizado", null);
 
-        // Buscar usuario existente
-        Optional<Usuario> existenteOpt = this.usuarioRepository.findById(id);
-        if (existenteOpt.isEmpty()) {
-            response.setMessage("Usuario no encontrado");
-            return response;
-        }
-        Usuario existente = existenteOpt.get();
+        Optional<Usuario> existente = this.usuarioRepository.findByEmail(usuario.getEmail());
 
-        // Validar email duplicado
-        Optional<Usuario> porEmail = this.usuarioRepository.findByEmail(usuarioUpdate.getEmail());
-        if (porEmail.isPresent() && porEmail.get().getId() != id) {
+        if (existente.isPresent() && existente.get().getId() != id) 
+        {
             response.setMessage("Usuario no actualizado: Email duplicado");
-            response.setData(usuarioUpdate);
             return response;
         }
 
-        existente.setNombreUsuario(usuarioUpdate.getNombreUsuario());
-        existente.setEmail(usuarioUpdate.getEmail());
+        usuario.setId(id);
+        usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
 
-        if (usuarioUpdate.getContraseña() != null && !usuarioUpdate.getContraseña().isBlank())
-            existente.setContraseña(passwordEncoder.encode(usuarioUpdate.getContraseña()));
+        Usuario usuarioNuevo = this.usuarioRepository.save(usuario);
 
-        Usuario usuarioGuardado = this.usuarioRepository.save(existente);
-        response.setData(usuarioGuardado);
+        response.setData(usuarioNuevo);
 
         return response;
     }

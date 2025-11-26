@@ -3,6 +3,7 @@ package com.patitofeliz.levelup_service.controller.usuario;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,12 +42,14 @@ public class UsuarioController
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable("id") int id)
+    public ResponseEntity<Usuario> findById(@PathVariable("id") int id, Authentication authentication)
     {
         Usuario usuario = this.usuarioService.findById(id);
 
         if (usuario == null)
             return ResponseEntity.notFound().build();
+
+        usuario.setContraseña("");
 
         return ResponseEntity.ok(usuario);
     }

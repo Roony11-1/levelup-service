@@ -36,8 +36,11 @@ public class SecurityConfiguration
                 .requestMatchers("/api/auth/**").permitAll()
                 // Permitir todo el trafico en la parte de movil (no quiero implementar jwt en el telefono)
                 .requestMatchers("/api/movil/**").permitAll()
+                .requestMatchers("/api/usuarios/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                 // Usuario
                 .requestMatchers(HttpMethod.GET, "/api/usuarios/id/**").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/api/usuarios/**").permitAll()
                 .requestMatchers("/api/usuarios/**").hasAuthority("ROLE_ADMIN")
                 // Proeducto
                 .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
