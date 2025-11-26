@@ -1,8 +1,11 @@
 package com.patitofeliz.levelup_service.security.config;
 
 import lombok.RequiredArgsConstructor;
+
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,19 +27,22 @@ public class SecurityConfiguration
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception 
+    {
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                                // Permitir el login sin token
-                                .requestMatchers("/api/**").permitAll()
-
-                                // Todo lo demás protegido
-                                .anyRequest().permitAll()
-                )
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            .csrf(AbstractHttpConfigurer::disable) // Desactiva CSRF para APIs 
+            .authorizeHttpRequests(auth -> auth
+                // Rutas públicas (para autenticación) solo de / api/v1/auth/
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/blog/**").permitAll()
+                // Otras rutas protegidas por roles globales (opcional, se usará @PreAuthorize en el controlador)
+                .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
+            )
+            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Gestión de sesión sin estado (JWT)
+            .authenticationProvider(authenticationProvider)
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Añade el filtro JWT
 
         return http.build();
     }

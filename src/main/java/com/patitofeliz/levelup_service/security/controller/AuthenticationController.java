@@ -20,6 +20,7 @@ import com.patitofeliz.levelup_service.model.dto.AuthResponseDTO;
 import com.patitofeliz.levelup_service.model.usuario.Usuario;
 import com.patitofeliz.levelup_service.security.auth.AuthenticationRequest;
 import com.patitofeliz.levelup_service.security.auth.AuthenticationService;
+import com.patitofeliz.levelup_service.security.config.CustomUserDetails;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,8 +28,7 @@ import com.patitofeliz.levelup_service.security.auth.AuthenticationService;
 @RequiredArgsConstructor
 public class AuthenticationController 
 {
-    @Autowired
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
     public ResponseEntity<Response<AuthResponseDTO>> register(@RequestBody Usuario usuario) 
@@ -51,8 +51,7 @@ public class AuthenticationController
 
         Usuario usuario = authenticationService.findProfile(id, token);
 
-        if (usuario == null)
-            return ResponseEntity.notFound().build();
+        CustomUserDetails details = CustomUserDetails.builder().usuario(usuario).build();
 
         return ResponseEntity.ok(usuario);
     }
