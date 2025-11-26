@@ -16,7 +16,7 @@ import com.patitofeliz.levelup_service.service.gacha.BannerService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/banner")
+@RequestMapping("/api/movil/banner")
 @RequiredArgsConstructor
 public class BannerController 
 {

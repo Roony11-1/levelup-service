@@ -13,7 +13,7 @@ import com.patitofeliz.levelup_service.service.gacha.GachaService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/gacha")
+@RequestMapping("/api/movil/gacha")
 @RequiredArgsConstructor
 public class GachaController 
 {

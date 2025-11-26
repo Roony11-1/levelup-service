@@ -43,15 +43,11 @@ public class AuthenticationController
     }
 
     @GetMapping("/profile/{id}")
-    public ResponseEntity<Usuario> findProfile(@PathVariable int id, @RequestHeader("Authorization") String token)
+    public ResponseEntity<Usuario> findProfile(@PathVariable int id)
     {
-        // Validar formato
-        if (token == null || !token.startsWith("Bearer "))
-            return ResponseEntity.status(401).build();
+        Usuario usuario = authenticationService.findProfile(id);
 
-        Usuario usuario = authenticationService.findProfile(id, token);
-
-        CustomUserDetails details = CustomUserDetails.builder().usuario(usuario).build();
+        //CustomUserDetails details = CustomUserDetails.builder().usuario(usuario).build();
 
         return ResponseEntity.ok(usuario);
     }

@@ -34,9 +34,20 @@ public class SecurityConfiguration
             .authorizeHttpRequests(auth -> auth
                 // Rutas públicas (para autenticación) solo de / api/v1/auth/
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasAuthority("ROLE_ADMIN")
+                // Permitir todo el trafico en la parte de movil (no quiero implementar jwt en el telefono)
+                .requestMatchers("/api/movil/**").permitAll()
+                // Usuario
+                .requestMatchers(HttpMethod.GET, "/api/usuarios/id/**").authenticated()
+                .requestMatchers("/api/usuarios/**").hasAuthority("ROLE_ADMIN")
+                // Proeducto
                 .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/productos/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasAuthority("ROLE_ADMIN")
+                // Blogs
                 .requestMatchers(HttpMethod.GET, "/api/blog/**").permitAll()
+                //Ventas
+                .requestMatchers(HttpMethod.GET, "/api/venta/**").hasAuthority("ROLE_ADMIN")
                 // Otras rutas protegidas por roles globales (opcional, se usará @PreAuthorize en el controlador)
                 .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
             )

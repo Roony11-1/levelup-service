@@ -20,7 +20,7 @@ import com.patitofeliz.levelup_service.service.fireemblem.UnidadService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/unidades")
+@RequestMapping("/api/movil/unidades")
 @CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class UnidadController 
