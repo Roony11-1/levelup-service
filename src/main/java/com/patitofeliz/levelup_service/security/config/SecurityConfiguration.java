@@ -30,7 +30,7 @@ public class SecurityConfiguration
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception 
     {
         http
-            .csrf(AbstractHttpConfigurer::disable) // Desactiva CSRF para APIs 
+            .csrf(AbstractHttpConfigurer::disable) // Desactiva CSRF para APIs
             .authorizeHttpRequests(auth -> auth
                 // Rutas públicas (para autenticación) solo de / api/v1/auth/
                 .requestMatchers("/api/auth/**").permitAll()
@@ -42,7 +42,8 @@ public class SecurityConfiguration
             )
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Gestión de sesión sin estado (JWT)
             .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Añade el filtro JWT
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)  // Añade el filtro JWT
+            .cors();
 
         return http.build();
     }
