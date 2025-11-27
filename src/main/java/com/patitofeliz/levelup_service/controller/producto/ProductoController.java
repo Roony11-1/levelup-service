@@ -107,7 +107,7 @@ public class ProductoController
         return ResponseEntity.ok(actualizado);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping()
     public ResponseEntity<Producto> save(@RequestBody Producto producto)
     {
         Producto productoGuardado = productoService.save(producto);
