@@ -46,10 +46,7 @@ public class SecurityConfiguration
                 .requestMatchers("/doc/**").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 // Proeducto
-                .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/productos").hasAuthority("ROLE_ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasAuthority("ROLE_ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/productos/**").permitAll()
                 // Blogs
                 .requestMatchers(HttpMethod.GET, "/api/blog/**").permitAll()
                 //Ventas
