@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +32,24 @@ public class BannerController
             return ResponseEntity.noContent().build();
 
         return ResponseEntity.ok(listaBanners);
+    }
+
+    @GetMapping("/{activo}")
+    public ResponseEntity<List<Banner>> findAllByActivo(@PathVariable(required = false) Boolean activo) 
+    {
+        if (activo == null)
+            return ResponseEntity.noContent().build();
+
+        List<Banner> banners = bannerService.findByActivo(activo);
+        return ResponseEntity.ok(banners);
+    }
+
+    @PostMapping
+    public ResponseEntity<Banner> save(@RequestBody Banner banner)
+    {
+        Banner bannerGuardado = bannerService.save(banner);
+
+        return ResponseEntity.ok(bannerGuardado);
     }
 
     @PostMapping("/{bannerId}/item/{itemId}")

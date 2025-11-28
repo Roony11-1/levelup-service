@@ -24,6 +24,16 @@ public class BannerService
         return bannerRepository.findAll();
     }
 
+    public List<Banner> findByActivo(boolean activo)
+    {
+        return bannerRepository.findByActivo(activo);
+    }
+
+    public Banner save(Banner banner)
+    {
+        return bannerRepository.save(banner);
+    }
+
     public Banner agregarItem(int bannerId, int itemId)
     {
         Banner banner = bannerRepository.findById(bannerId)
