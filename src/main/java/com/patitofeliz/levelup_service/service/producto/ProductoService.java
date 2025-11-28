@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.stereotype.Service;
 
 import com.patitofeliz.levelup_service.model.producto.Producto;
@@ -109,6 +111,14 @@ public class ProductoService
             "producto", producto,
             "relacionados", relacionados
         );
+    }
+
+    public Producto save(Producto producto)
+    {
+        if (producto.getId() != 0)
+            throw new RuntimeException("Que intentas hacer papito!!!?");
+
+        return productoRepository.save(producto);
     }
 
     public Producto update(int id, Producto producto) 

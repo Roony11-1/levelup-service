@@ -42,6 +42,9 @@ public class SecurityConfiguration
                 .requestMatchers(HttpMethod.GET, "/api/usuarios/id/**").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/api/usuarios/**").permitAll()
                 .requestMatchers("/api/usuarios/**").hasAuthority("ROLE_ADMIN")
+                // Swagger
+                .requestMatchers("/doc/**").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
                 // Proeducto
                 .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/productos/**").hasAuthority("ROLE_ADMIN")
