@@ -34,7 +34,7 @@ public class BannerController
         return ResponseEntity.ok(listaBanners);
     }
 
-    @GetMapping("/{activo}")
+    @GetMapping("/activo/{activo}")
     public ResponseEntity<List<Banner>> findAllByActivo(@PathVariable(required = false) Boolean activo) 
     {
         if (activo == null)

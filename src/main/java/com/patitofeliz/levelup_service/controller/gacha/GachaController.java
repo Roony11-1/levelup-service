@@ -1,6 +1,7 @@
 package com.patitofeliz.levelup_service.controller.gacha;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,14 @@ public class GachaController
     public ResponseEntity<PullResponseDTO> pull(@RequestParam int bannerId, @RequestParam int usuarioId) 
     {
         Pull pull = gachaService.pull(bannerId, usuarioId);
+        return ResponseEntity.ok(new PullResponseDTO(pull));
+    }
+
+    @PostMapping("/banner/{bId}/usuario/{uId}")
+    public ResponseEntity<PullResponseDTO> pullE(@PathVariable int bId, @PathVariable int uId)
+    {
+        Pull pull = gachaService.pull(bId, uId);
+
         return ResponseEntity.ok(new PullResponseDTO(pull));
     }
 }

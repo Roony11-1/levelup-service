@@ -2,6 +2,7 @@ package com.patitofeliz.levelup_service.service.gacha;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,19 @@ public class BannerService
 
     public List<Banner> findByActivo(boolean activo)
     {
-        return bannerRepository.findByActivo(activo);
+        List<Banner> banners = bannerRepository.findByActivo(activo);
+
+        for (Banner banner : banners) 
+        {
+            if (banner.getItems() != null) 
+            {
+                banner.setItems(
+                    banner.getItems().stream()
+                        .filter(BannerItem::isActivo)
+                        .collect(Collectors.toList()));
+            }
+        }
+        return banners;
     }
 
     public Banner save(Banner banner)

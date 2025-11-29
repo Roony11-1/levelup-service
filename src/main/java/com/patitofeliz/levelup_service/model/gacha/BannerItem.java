@@ -19,4 +19,5 @@ public class BannerItem
     private String tipo;
     private String rareza;
     private double probabilidad;
+    private boolean activo;
 }
