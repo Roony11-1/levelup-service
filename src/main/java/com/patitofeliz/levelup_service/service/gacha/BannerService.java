@@ -47,6 +47,24 @@ public class BannerService
         return bannerRepository.save(banner);
     }
 
+    public Banner update(int bannerId, Banner bannerUpdater) 
+    {
+        Banner banner = bannerRepository.findById(bannerId)
+            .orElseThrow(() -> new RuntimeException("Banner no encontrado"));
+
+        banner.setNombre(bannerUpdater.getNombre());
+        banner.setDescripcion(bannerUpdater.getDescripcion());
+        banner.setActivo(bannerUpdater.isActivo());
+
+        if (bannerUpdater.getItems() != null)
+            banner.setItems(bannerUpdater.getItems());
+
+        if (banner.getItems().size() == 0)
+            banner.setActivo(false);
+
+        return bannerRepository.save(banner);
+    }
+
     public Banner agregarItem(int bannerId, int itemId)
     {
         Banner banner = bannerRepository.findById(bannerId)

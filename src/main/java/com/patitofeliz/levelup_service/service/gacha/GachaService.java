@@ -1,5 +1,6 @@
 package com.patitofeliz.levelup_service.service.gacha;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,19 +62,32 @@ public class GachaService
         return pullRepository.save(pull);
     }
 
-    private BannerItem recompenza(List<BannerItem> items)
+    private BannerItem recompenza(List<BannerItem> items) 
     {
+        List<String> rarezasOrden = List.of("S", "A", "B");
+
         String rarezaElegida = elegirRareza();
 
-        List<BannerItem> filtrados = items.stream()
-                .filter(i -> i.getRareza().equalsIgnoreCase(rarezaElegida))
-                .toList();
+        List<String> rarezasAProbar = new ArrayList<>();
+        rarezasAProbar.add(rarezaElegida);
+        for (String r : rarezasOrden) 
+            {
+            if (!r.equalsIgnoreCase(rarezaElegida)) 
+                rarezasAProbar.add(r);
+        }
 
-        if (filtrados.isEmpty())
-            throw new RuntimeException("No hay items con rareza " + rarezaElegida);
+        for (String r : rarezasAProbar) 
+            {
+            List<BannerItem> filtrados = items.stream()
+                    .filter(i -> i.getRareza().equalsIgnoreCase(r))
+                    .toList();
 
-        return elegirDentroRareza(filtrados);
-}
+            if (!filtrados.isEmpty())
+                return elegirDentroRareza(filtrados);
+        }
+
+        return items.get(0);
+    }
 
     private String elegirRareza()
     {

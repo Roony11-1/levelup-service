@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,14 @@ public class BannerController
         Banner bannerGuardado = bannerService.save(banner);
 
         return ResponseEntity.ok(bannerGuardado);
+    }
+
+    @PutMapping("/id/{id}")
+    public ResponseEntity<Banner> update(@PathVariable int id, @RequestBody Banner banner)
+    {
+        Banner updateado = bannerService.update(id, banner);
+
+        return ResponseEntity.ok(updateado);
     }
 
     @PostMapping("/{bannerId}/item/{itemId}")
