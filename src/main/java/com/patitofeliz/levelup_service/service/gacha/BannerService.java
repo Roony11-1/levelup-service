@@ -45,6 +45,9 @@ public class BannerService
 
     public Banner save(Banner banner) 
     {
+        if (banner.getItems().size() == 0)
+            banner.setActivo(false);
+
         return bannerRepository.save(banner);
     }
 
