@@ -77,7 +77,7 @@ public class GachaService
         }
 
         for (String r : rarezasAProbar) 
-            {
+        {
             List<BannerItem> filtrados = items.stream()
                     .filter(i -> i.getRareza().equalsIgnoreCase(r))
                     .toList();
