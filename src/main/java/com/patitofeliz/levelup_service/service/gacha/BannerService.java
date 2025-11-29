@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.patitofeliz.levelup_service.model.gacha.Banner;
 import com.patitofeliz.levelup_service.model.gacha.BannerItem;
@@ -42,11 +43,12 @@ public class BannerService
         return banners;
     }
 
-    public Banner save(Banner banner)
+    public Banner save(Banner banner) 
     {
         return bannerRepository.save(banner);
     }
 
+    @Transactional
     public Banner update(int bannerId, Banner bannerUpdater) 
     {
         Banner banner = bannerRepository.findById(bannerId)
@@ -63,6 +65,19 @@ public class BannerService
             banner.setActivo(false);
 
         return bannerRepository.save(banner);
+    }
+
+    @Transactional
+    public void deleteById(int id)
+    {
+        Banner banner = bannerRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Banner no encontrado"));
+
+        banner.getItems().clear(); // Limpiamos la lista para borrar las relaciónes
+
+        bannerRepository.save(banner); // hacemos "Commit" a los cambios
+
+        bannerRepository.deleteById(id); // Borramos
     }
 
     public Banner agregarItem(int bannerId, int itemId)

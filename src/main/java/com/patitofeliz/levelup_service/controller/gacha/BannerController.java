@@ -61,6 +61,13 @@ public class BannerController
         return ResponseEntity.ok(updateado);
     }
 
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable int id)
+    {
+        bannerService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{bannerId}/item/{itemId}")
     public ResponseEntity<Banner> agregarItem(@PathVariable int bannerId, @PathVariable int itemId) 
     {
