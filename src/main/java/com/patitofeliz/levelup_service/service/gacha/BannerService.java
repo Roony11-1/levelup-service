@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.patitofeliz.levelup_service.model.gacha.Banner;
 import com.patitofeliz.levelup_service.model.gacha.BannerItem;
+import com.patitofeliz.levelup_service.model.gacha.Pull;
 import com.patitofeliz.levelup_service.repository.gacha.BannerItemRepository;
 import com.patitofeliz.levelup_service.repository.gacha.BannerRepository;
+import com.patitofeliz.levelup_service.repository.gacha.PullRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +22,7 @@ public class BannerService
 {
     private final BannerRepository bannerRepository;
     private final BannerItemRepository bannerItemRepository;
+    private final PullRepository pullRepository;
 
     public List<Banner> findAll()
     {
@@ -43,6 +46,7 @@ public class BannerService
         return banners;
     }
 
+    @Transactional
     public Banner save(Banner banner) 
     {
         if (banner.getItems().size() == 0)
@@ -79,6 +83,13 @@ public class BannerService
         banner.getItems().clear(); // Limpiamos la lista para borrar las relaciónes
 
         bannerRepository.save(banner); // hacemos "Commit" a los cambios
+
+        List<Pull> pullsBanner = pullRepository.findByBanner(banner);
+
+        for (Pull pull : pullsBanner) 
+        {
+            pullRepository.deleteById(pull.getId());
+        }
 
         bannerRepository.deleteById(id); // Borramos
     }
