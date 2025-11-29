@@ -2,6 +2,7 @@ package com.patitofeliz.levelup_service.service.gacha;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,9 @@ public class GachaService
 
         // tendre rarezas B - A - S
         // Lista de objetos de el banner
-        List<BannerItem> listaBanner = banner.getItems();
+        List<BannerItem> listaBanner = banner.getItems().stream()
+            .filter(BannerItem::isActivo)
+            .collect(Collectors.toList());
 
         if (listaBanner.isEmpty())
             throw new RuntimeException("El banner no tiene items asignados");
